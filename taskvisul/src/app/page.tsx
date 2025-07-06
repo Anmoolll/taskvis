@@ -70,7 +70,7 @@ export default function Home() {
   }
 
   function handleEdit(tx: Transaction) {
-    setEditing(tx);
+    setEditing({ ...tx, id: (tx as any)._id });
   }
 
   return (

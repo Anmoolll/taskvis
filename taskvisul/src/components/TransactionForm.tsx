@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { format } from "date-fns";
+import { format, parse } from "date-fns";
 
 // Define a Transaction type for props and state
 export type Transaction = {
@@ -23,6 +23,13 @@ export default function TransactionForm({ onSubmit, initial, loading }: Transact
   const [description, setDescription] = useState(initial?.description || "");
   const [error, setError] = useState("");
 
+  // Sync form fields with initial when editing
+  useEffect(() => {
+    setAmount(initial?.amount?.toString() || "");
+    setDate(initial?.date ? format(new Date(initial.date), "yyyy-MM-dd") : "");
+    setDescription(initial?.description || "");
+  }, [initial]);
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!amount || !date || !description) {
@@ -34,7 +41,10 @@ export default function TransactionForm({ onSubmit, initial, loading }: Transact
       return;
     }
     setError("");
-    onSubmit({ amount: Number(amount), date, description });
+    // Send date as yyyy-MM-dd (raw input value)
+    const tx: Transaction = { amount: Number(amount), date, description };
+    if (initial?.id) tx.id = initial.id;
+    onSubmit(tx);
   };
 
   return (
