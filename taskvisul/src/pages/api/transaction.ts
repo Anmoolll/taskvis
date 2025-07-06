@@ -12,22 +12,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   if (req.method === "POST") {
-    const { amount, date, description } = req.body;
-    if (!amount || !date || !description) {
+    const { amount, date, description, category } = req.body;
+    if (!amount || !date || !description || !category) {
       return res.status(400).json({ error: "All fields are required" });
     }
-    const transaction = await Transaction.create({ amount, date, description });
+    const transaction = await Transaction.create({ amount, date, description, category });
     return res.status(201).json(transaction);
   }
 
   if (req.method === "PUT") {
-    const { id, amount, date, description } = req.body;
-    if (!id || !amount || !date || !description) {
+    const { id, amount, date, description, category } = req.body;
+    if (!id || !amount || !date || !description || !category) {
       return res.status(400).json({ error: "All fields are required" });
     }
     const transaction = await Transaction.findByIdAndUpdate(
       id,
-      { amount, date, description },
+      { amount, date, description, category },
       { new: true }
     );
     return res.status(200).json(transaction);

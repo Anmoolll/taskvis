@@ -11,6 +11,7 @@ export default function TransactionList({ transactions, onEdit, onDelete }: { tr
             <th>Amount</th>
             <th>Date</th>
             <th>Description</th>
+            <th>Category</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -20,6 +21,7 @@ export default function TransactionList({ transactions, onEdit, onDelete }: { tr
               <td>{tx.amount}</td>
               <td>{format(new Date(tx.date), "dd/MM/yyyy")}</td>
               <td>{tx.description}</td>
+              <td>{tx.category}</td>
               <td className="flex gap-2">
                 <Button
                   variant="outline"
