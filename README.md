@@ -36,8 +36,8 @@ A simple and responsive web application to help users track their personal finan
 
 ### 1. Clone the repo
 ```bash
-git clone https://github.com/your-username/personal-finance-visualizer.git
-cd personal-finance-visualizer
+https://github.com/Anmoolll/taskvis.git
+cd taskvisul
 ```
 
 2. Install dependencies
